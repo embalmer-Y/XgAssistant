@@ -4,3 +4,5 @@ XgAssistant->0.1
 
 Project Description:
 This is a Voice assistant based on Turing robot and Baidu AI (not completed).
+
+🐕
