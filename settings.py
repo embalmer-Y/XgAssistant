@@ -15,7 +15,7 @@ SETTINGS = {
     'province': '',
     'street': '',
     "apiKey": "",
-    "userId": "",
+    "userId": "584181",
     'font_color': '36',
     'background_color': '40'
 }
