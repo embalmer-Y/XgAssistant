@@ -1,6 +1,6 @@
 from playsound import playsound
 
-from ToolsKit.BaiduAiTools.baiduaisettings import CLIENT, SPEECH_SYN_SETTINGS
+from ToolsKit.BaiduAiTools.baiduaisettings import CLIENT, SPEECH_SYN_SETTINGS, SPEECH_CON_SETTINGS
 
 
 def speech_synthesis(media_id, path, reply_msg):
@@ -13,3 +13,18 @@ def speech_synthesis(media_id, path, reply_msg):
             playsound(f'{path}\\Media\\DownloadAudio\\{media_id}.mp3')
         except IOError as error:
             print(f'play media file failure:{error}')
+
+
+def get_file_content(file_path):
+    with open(file_path, 'rb') as fp:
+        return fp.read()
+
+
+def speech_recognition(media_id, path):
+    result = CLIENT.asr(get_file_content(f'{path}\\Media\\UploadAudio\\{media_id}.wav'), 'wav', 16000,
+                        SPEECH_CON_SETTINGS)
+    if result['err_no'] == 0:
+        return result['result'][0]
+    else:
+        print(result['err_msg'])
+        return None

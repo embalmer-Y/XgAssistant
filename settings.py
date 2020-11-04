@@ -17,7 +17,8 @@ SETTINGS = {
     "apiKey": "",
     "userId": "584181",
     'font_color': '36',
-    'background_color': '40'
+    'background_color': '40',
+    'flag_voice': 'N'
 }
 
 

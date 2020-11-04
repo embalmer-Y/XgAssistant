@@ -3,6 +3,8 @@ import numpy as np
 from scipy import fftpack
 import wave
 
+from ToolsKit.BaiduAiTools.SpeechModel import speech_recognition
+
 CHUNK = 1024  # 块大小
 FORMAT = pyaudio.paInt16  # 每次采集的位数
 CHANNELS = 1  # 声道数
@@ -11,7 +13,7 @@ RATE = 16000  # 采样率：每秒采集数据的次数
 # WAVE_OUTPUT_FILENAME = filename  # 文件存放位置
 
 
-def recording(path_name, sampling_time, media_id, threshold=7000):
+def recording(path_name, media_id, sampling_time=0, threshold=7000):
     """
     :param media_id: 文件名
     :param path_name: 文件路径
@@ -19,7 +21,6 @@ def recording(path_name, sampling_time, media_id, threshold=7000):
     :param threshold: 判断录音结束的阈值
     :return:
     """
-
     p = pyaudio.PyAudio()
     stream = p.open(format=FORMAT, channels=CHANNELS, rate=RATE, input=True, frames_per_buffer=CHUNK)
     print("* 录音中...")
@@ -59,8 +60,9 @@ def recording(path_name, sampling_time, media_id, threshold=7000):
     stream.stop_stream()
     stream.close()
     p.terminate()
-    with wave.open(f"{path_name}\\Media\\UploadAudio\\{media_id}", 'wb') as wf:
+    with wave.open(f"{path_name}\\Media\\UploadAudio\\{media_id}.wav", 'wb') as wf:
         wf.setnchannels(CHANNELS)
         wf.setsampwidth(p.get_sample_size(FORMAT))
         wf.setframerate(RATE)
         wf.writeframes(b''.join(frames))
+    return speech_recognition(media_id=media_id, path=path_name)
