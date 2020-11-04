@@ -2,7 +2,7 @@ import threading
 import os
 import time
 
-from settings import SETTINGS, setting_menu, get_address, help_menu, welcome_menu
+from settings import SETTINGS, setting_menu, get_address, help_menu, welcome_menu, game_menu
 from ToolsKit.BaiduAiTools.SpeechModel import speech_synthesis
 from ToolsKit.TuringAiTools.GetMessage import get_message
 from ToolsKit.ProgressModel import process_bar
@@ -27,6 +27,8 @@ if __name__ == '__main__':
             help_menu()
         elif '调教' in msg_in:
             setting_menu()
+        elif '本领' in msg_in:
+            game_menu(path=path)
         else:
             if SETTINGS['flag_voice'] == 'Y':
                 reply_msg = get_message(msg_in, SETTINGS)

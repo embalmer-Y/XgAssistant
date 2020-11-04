@@ -4,9 +4,12 @@ XgAssistant settings
 
 from urllib.request import urlopen
 import random
+import os
 
 import IPy
 import requests
+
+from App import GamePlugin
 
 
 SETTINGS = {
@@ -28,6 +31,29 @@ WELCOME_LIST = [
     '  ┬＿┬ 你再不来人家要单相思了  ',
     '(*/ω＼*) 让我看看是哪个小可爱来啦',
 ]
+
+
+def game_menu(path):
+    dir_list = os.listdir(f'{path}\\App\\GamePlugin')
+    init_index = dir_list.index('__init__.py')
+    list_index = []
+    del dir_list[init_index]
+    print('='*39)
+    print('%游戏目录%'.center(39))
+    print('-'*39)
+    for inx, val in enumerate(dir_list):
+        print(f'{inx}---{val}')
+        list_index.append(inx)
+    print('输入exit退出菜单')
+    print('-'*39)
+    while True:
+        msg_set = input('>')
+        if msg_set != 'exit' and eval(msg_set) in list_index:
+            exec(f'GamePlugin.{dir_list[int(msg_set)]}.main()')
+        elif msg_set == 'exit':
+            break
+        else:
+            print('enter error！')
 
 
 def setting_menu():
