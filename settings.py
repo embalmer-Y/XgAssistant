@@ -34,6 +34,7 @@ WELCOME_LIST = [
 
 
 def game_menu(path):
+    game_plugin = GamePlugin
     dir_list = os.listdir(f'{path}\\App\\GamePlugin')
     init_index = dir_list.index('__init__.py')
     list_index = []
@@ -49,7 +50,7 @@ def game_menu(path):
     while True:
         msg_set = input('>')
         if msg_set != 'exit' and eval(msg_set) in list_index:
-            exec(f'GamePlugin.{dir_list[int(msg_set)]}.main()')
+            exec(f'{game_plugin}.{dir_list[int(msg_set)]}.main()')
         elif msg_set == 'exit':
             break
         else:
@@ -126,7 +127,7 @@ def help_menu():
     str_space = ' '
     width = 39
     print('=' * width)
-    print('雪糕v0.1'.center(width))
+    print('雪糕v0.31'.center(width))
     print('author:\N{Cat}Emb'.center(width))
     print('-' * width)
     print(f'help:{str_space * 28}帮助菜单')
